@@ -84,6 +84,41 @@ namespace PurrfectPartners.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            /// 
+            [Required]
+            [StringLength(256, ErrorMessage = "Please ensure that the value entered is between 4-256 characters!", MinimumLength = 4)]
+            [Display(Name = "Full Name")]
+            public string Name { get; set; }
+
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            /// 
+            [Display(Name = "Address")]
+            public string Address { get; set; }
+
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            [Phone]
+            [Display(Name = "Phone")]
+            public string Phone { get; set; }
+
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            [Required]
+            [DataType(DataType.Date)]
+            [Display(Name = "Date Of Birth")]
+            public DateTime DOB { get; set; }
+
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
@@ -117,6 +152,10 @@ namespace PurrfectPartners.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.Name = Input.Name;
+                user.DOB = Input.DOB;
+                user.Phone = Input.Phone;
+                user.Address = Input.Address;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
