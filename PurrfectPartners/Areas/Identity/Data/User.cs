@@ -15,10 +15,6 @@ public class User : IdentityUser
     public string Name { get; set; } = null!;
 
     [PersonalData]
-    [Column("Phone", TypeName = "nvarchar(20)")]
-    public string? Phone { get; set; }
-
-    [PersonalData]
     public string? Address { get; set; }
 
     [PersonalData]

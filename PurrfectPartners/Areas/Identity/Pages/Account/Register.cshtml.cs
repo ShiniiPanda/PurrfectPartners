@@ -96,6 +96,7 @@ namespace PurrfectPartners.Areas.Identity.Pages.Account
             /// </summary>
             /// 
             [Display(Name = "Address")]
+            [DataType(DataType.MultilineText)]
             public string Address { get; set; }
 
             /// <summary>
@@ -103,7 +104,7 @@ namespace PurrfectPartners.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Phone]
-            [Display(Name = "Phone")]
+            [Display(Name = "Phone Number")]
             public string Phone { get; set; }
 
             /// <summary>
@@ -154,8 +155,8 @@ namespace PurrfectPartners.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.Name = Input.Name;
                 user.DOB = Input.DOB;
-                user.Phone = Input.Phone;
                 user.Address = Input.Address;
+                if (Input.Phone != null) await _userManager.SetPhoneNumberAsync(user, Input.Phone);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
