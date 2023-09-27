@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PurrfectPartners.Data;
 
@@ -11,9 +12,11 @@ using PurrfectPartners.Data;
 namespace PurrfectPartners.Migrations
 {
     [DbContext(typeof(PurrfectPartnersContext))]
-    partial class PurrfectPartnersContextModelSnapshot : ModelSnapshot
+    [Migration("20230927111747_Modified-User-Table")]
+    partial class ModifiedUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
