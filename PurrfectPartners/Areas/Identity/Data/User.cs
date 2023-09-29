@@ -33,6 +33,8 @@ public class User : IdentityUser
 
     public UserRole Role { get; set; } = 0;
 
+    public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+
     public string GetFirstName()
     {
         if (Name.Contains(' '))
@@ -41,6 +43,7 @@ public class User : IdentityUser
         }
         return Name;
     }
+
 
 }
 

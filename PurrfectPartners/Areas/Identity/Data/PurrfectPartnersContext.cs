@@ -12,6 +12,9 @@ public class PurrfectPartnersContext : IdentityDbContext<User>
     {
     }
 
+    public DbSet<Appointment> Appointments { get; set; }
+    public DbSet<TrainingService> TrainingServices { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "aW+f9Fw7UjE+cOMy0c19j74Qk3zcEX4Ksic5PIONMPQ=",
+  "Hash": "WW198Ig3OrGvF9QyK4rLKWcVALbqH1TXzdUCQQZztxw=",
   "Source": "PurrfectPartners",
   "BasePath": "_content/PurrfectPartners",
   "Mode": "Default",
@@ -1103,6 +1103,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\wwwroot\\images\\logo.png",
+      "SourceId": "PurrfectPartners",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\wwwroot\\",
+      "BasePath": "_content/PurrfectPartners",
+      "RelativePath": "images/logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\logo.png"
+    },
+    {
+      "Identity": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\wwwroot\\images\\pawpattern.png",
+      "SourceId": "PurrfectPartners",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\wwwroot\\",
+      "BasePath": "_content/PurrfectPartners",
+      "RelativePath": "images/pawpattern.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\pawpattern.png"
     },
     {
       "Identity": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\wwwroot\\js\\site.js",
