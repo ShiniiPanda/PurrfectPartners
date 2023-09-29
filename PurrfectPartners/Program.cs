@@ -7,7 +7,9 @@ var connectionString = builder.Configuration.GetConnectionString("PurrfectPartne
 
 builder.Services.AddDbContext<PurrfectPartnersContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<PurrfectPartnersContext>();
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<PurrfectPartnersContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -31,8 +31,6 @@ public class User : IdentityUser
     [PersonalData]
     public DateTime DOB { get; set; }
 
-    public UserRole Role { get; set; } = 0;
-
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public string GetFirstName()
