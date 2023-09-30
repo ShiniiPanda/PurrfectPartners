@@ -1,0 +1,50 @@
+﻿@model PurrfectPartners.Areas.Identity.Data.Appointment
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Book a new Appointment</h1>
+<div class="my-1">
+    <a asp-action="Index">Go to My Appointments</a>
+</div>
+@*<h4>Appointment</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Appointments" asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group my-2">
+                <label asp-for="ReservationDate" class="control-label"></label>
+                <input asp-for="ReservationDate" class="form-control" />
+                <span asp-validation-for="ReservationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="BookingDate" class="control-label"></label>
+                <input asp-for="BookingDate" class="form-control" />
+                <span asp-validation-for="BookingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="TrainingServiceId" class="control-label">Service</label>
+                <select asp-for="TrainingServiceId" class ="form-control" asp-items="ViewBag.Services"></select>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="AnimalImage" class="control-label">Picture</label>
+                <input type="file" accept="image/*" name="AnimalImage" asp-for="AnimalImage" class="form-control" />
+                <span asp-validation-for="AnimalImage" class="text-danger"></span>
+            </div>
+  @*          <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+            </div>*@
+            <div class="form-group mt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
