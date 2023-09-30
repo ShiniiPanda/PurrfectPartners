@@ -18,6 +18,8 @@ namespace PurrfectPartners.Areas.Identity.Data
 
         public string? AnimalImage { get; set; }
 
+        public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
+
         public TrainingService? TrainingService { get; set; }
 
         public int? TrainingServiceId { get; set; }
