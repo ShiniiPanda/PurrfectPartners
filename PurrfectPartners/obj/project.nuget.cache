@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "QsSJy2gtZZAz2tlGsgJAPOpznoLLjYpMMFcmU40jcknh8uJpmdAfa8gK9laIUUAj1lHHskd6Q8glMF3RKfOlFg==",
+  "dgSpecHash": "i7D0UEhhPvjRCFp01ALyQkJ35pTaH+1fMSd4O+2JI9oXQRZbGVdKJqfIW36BycDJjb9SuHrM3F1f/PiDDW5DHQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\PurrfectPartners.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\celis\\.nuget\\packages\\awssdk.core\\3.7.202.17\\awssdk.core.3.7.202.17.nupkg.sha512",
+    "C:\\Users\\celis\\.nuget\\packages\\awssdk.s3\\3.7.205.3\\awssdk.s3.3.7.205.3.nupkg.sha512",
     "C:\\Users\\celis\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\celis\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\celis\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
