@@ -15,6 +15,10 @@ public class PurrfectPartnersContext : IdentityDbContext<User>
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<TrainingService> TrainingServices { get; set; }
 
+    public DbSet<Animal> Animals { get; set; }
+
+    public DbSet<AnimalTrainingServices> AnimalServices { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -26,5 +30,19 @@ public class PurrfectPartnersContext : IdentityDbContext<User>
             .Property(a => a.Status)
             .HasConversion<int>()
             .HasDefaultValue(AppointmentStatus.Pending);
+
+        builder.Entity<Appointment>()
+            .HasOne(a => a.Animal)
+            .WithMany(a => a.Appointments)
+            .IsRequired();
+
+        builder.Entity<Animal>()
+            .HasMany(a => a.TrainingServices)
+            .WithMany(s => s.Animals)
+            .UsingEntity<AnimalTrainingServices>
+            (
+                l => l.HasOne<TrainingService>(t => t.TrainingService).WithMany(t => t.JoinedAnimals),
+                r => r.HasOne<Animal>(a => a.Animal).WithMany(a => a.JoinedServices)
+            );
     }
 }

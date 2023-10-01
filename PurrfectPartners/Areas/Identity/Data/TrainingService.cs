@@ -17,7 +17,9 @@ namespace PurrfectPartners.Areas.Identity.Data
 
         public double StartingPrice { get; set; }
 
-        public string? Animals { get; set; } 
+        public List<Animal> Animals { get; set; } = new List<Animal>();
+
+        public ICollection<AnimalTrainingServices> JoinedAnimals { get; set; } = new List<AnimalTrainingServices>();
 
     }
 }

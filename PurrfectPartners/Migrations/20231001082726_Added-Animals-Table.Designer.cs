@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PurrfectPartners.Data;
 
@@ -11,9 +12,11 @@ using PurrfectPartners.Data;
 namespace PurrfectPartners.Migrations
 {
     [DbContext(typeof(PurrfectPartnersContext))]
-    partial class PurrfectPartnersContextModelSnapshot : ModelSnapshot
+    [Migration("20231001082726_Added-Animals-Table")]
+    partial class AddedAnimalsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,21 +177,6 @@ namespace PurrfectPartners.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Animals");
-                });
-
-            modelBuilder.Entity("PurrfectPartners.Areas.Identity.Data.AnimalTrainingServices", b =>
-                {
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TrainingServiceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AnimalId", "TrainingServiceId");
-
-                    b.HasIndex("TrainingServiceId");
-
-                    b.ToTable("AnimalServices");
                 });
 
             modelBuilder.Entity("PurrfectPartners.Areas.Identity.Data.Appointment", b =>
@@ -386,25 +374,6 @@ namespace PurrfectPartners.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PurrfectPartners.Areas.Identity.Data.AnimalTrainingServices", b =>
-                {
-                    b.HasOne("PurrfectPartners.Areas.Identity.Data.Animal", "Animal")
-                        .WithMany("JoinedServices")
-                        .HasForeignKey("AnimalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PurrfectPartners.Areas.Identity.Data.TrainingService", "TrainingService")
-                        .WithMany("JoinedAnimals")
-                        .HasForeignKey("TrainingServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Animal");
-
-                    b.Navigation("TrainingService");
-                });
-
             modelBuilder.Entity("PurrfectPartners.Areas.Identity.Data.Appointment", b =>
                 {
                     b.HasOne("PurrfectPartners.Areas.Identity.Data.Animal", "Animal")
@@ -433,13 +402,6 @@ namespace PurrfectPartners.Migrations
             modelBuilder.Entity("PurrfectPartners.Areas.Identity.Data.Animal", b =>
                 {
                     b.Navigation("Appointments");
-
-                    b.Navigation("JoinedServices");
-                });
-
-            modelBuilder.Entity("PurrfectPartners.Areas.Identity.Data.TrainingService", b =>
-                {
-                    b.Navigation("JoinedAnimals");
                 });
 
             modelBuilder.Entity("PurrfectPartners.Areas.Identity.Data.User", b =>

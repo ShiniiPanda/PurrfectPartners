@@ -16,6 +16,8 @@ namespace PurrfectPartners.Areas.Identity.Data
         // The date it was booked
         public DateTime BookingDate { get; set; }
 
+        public string? Breed { get; set; }
+
         public string? AnimalImage { get; set; }
 
         public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
@@ -27,5 +29,9 @@ namespace PurrfectPartners.Areas.Identity.Data
         public User User { get; set; } = null!;
 
         public string UserId { get; set; } = null!;
+
+        public Animal Animal { get; set; } = null!;
+
+        public int AnimalId { get; set; }
     }
 }
