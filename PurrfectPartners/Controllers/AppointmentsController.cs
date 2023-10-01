@@ -118,6 +118,11 @@ namespace PurrfectPartners.Controllers
             var appointment = await _context.Appointments.Include(a => a.TrainingService)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.Id == appointmentId);
+            if (appointment != null)
+            {
+                var appointmentOwner = await _context.Users.Where(u => u.Id == appointment.UserId).Select(u => u.Name).AsNoTracking().FirstOrDefaultAsync();
+                ViewBag.OwnerName = appointmentOwner == null ? null : appointmentOwner;
+            }
             return View(appointment);
         }
 

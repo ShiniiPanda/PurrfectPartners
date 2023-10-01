@@ -5,10 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Appointment</h1>
-
+<h1>Appointment Details</h1>
+<div class="mt-2 mb-4">
+    @*<a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |*@
+    <a asp-action="Index">Back to List</a>
+</div>
 <div>
-    <h4>Appointment</h4>
+    <h4>Appointment for @ViewBag.OwnerName</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -23,9 +26,19 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.BookingDate)
         </dd>
+        <dt class="col-sm-2">
+            Service
+        </dt>
+        <dd class="col-sm-10 ml-2">
+            Name: @Model.TrainingService!.Name | 
+            Starting Price: @Model.TrainingService.StartingPrice RM
+        </dd>
+        <dt class="col-sm-2">
+            Picture
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@("https://" + PurrfectPartners.Data.StandardValues.S3BucketName + ".s3.amazonaws.com/" + Model.AnimalImage)" alt="Picture of Animal" />
+        </dd>
+        @*"https://" + s3bucketname + ".s3.amazonaws.com/images/"*@
     </dl>
-</div>
-<div>
-    @*<a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |*@
-    <a asp-action="Index">Back to List</a>
 </div>
