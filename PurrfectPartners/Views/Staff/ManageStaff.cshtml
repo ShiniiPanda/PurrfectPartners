@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PurrfectPartners.Areas.Identity.Data.User>
+
+@{
+    ViewData["Title"] = "Manage Staff";
+    Layout = "~/Views/Staff/_Layout.cshtml";
+    var statusMessage = TempData["StatusMessage"];
+}
+
+<h1>Manage Staff Accounts</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                    <a onclick="return confirm('Are yu sure you want to delete this account?')" class="text-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h4>New Staff</h4>
+<partial name="_StatusMessage" model="statusMessage" />
+<form asp-action="MakeAdmin" asp-controller="Staff" method="post">
+    <div class="form-group">
+        <label for="email" class="control-label"></label>
+        <input name="email" type="email" class="form-control" />
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

@@ -5,11 +5,23 @@
 @inject UserManager<User> UserManager
 @{
     var AuthenticatedUser = await UserManager.GetUserAsync(User);
+    bool IsStaff = false;
+    if (AuthenticatedUser != null)
+    {
+        IsStaff = await UserManager.IsInRoleAsync(AuthenticatedUser, nameof(UserRole.Staff));
+    }
+    
 }
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    @if (IsStaff)
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-dark" asp-controller="Staff" asp-action="Index" title="Manage">Staff Dashboard</a>
+        </li>
+    }
     <li class="nav-item">
         <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
     </li>

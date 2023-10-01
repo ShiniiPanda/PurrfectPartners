@@ -165,7 +165,7 @@ namespace PurrfectPartners.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
+                    
                     var roleExists = await _roleManager.RoleExistsAsync(nameof(UserRole.Staff));
                     if (!roleExists)
                     {
@@ -173,6 +173,7 @@ namespace PurrfectPartners.Areas.Identity.Pages.Account
                     }
 
                     await _userManager.AddToRoleAsync(user, nameof(UserRole.Staff));
+                    //TODO: legit change the role to "Customer" or else it's disastrous btw lmao
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
