@@ -1,6 +1,7 @@
 ﻿using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -34,7 +35,7 @@ namespace PurrfectPartners.Controllers
                 return NotFound($"Unable to load user information!");
             }
             var completedAppointments = await _context.Appointments
-                .Where(a => a.UserId == userId && a.Status == AppointmentStatus.Pending)
+                .Where(a => a.UserId == userId)
                 .OrderBy(a => a.ReservationDate)
                 .ThenBy(a => a.Status)
                 .AsNoTracking()
@@ -149,6 +150,33 @@ namespace PurrfectPartners.Controllers
             }
 
             return View(appointment);
+        }
+
+        public async Task<ActionResult> CancelAppointment(string id, string returnAction)
+        {
+            var userId = _userManager.GetUserId(User);
+            var appointmentId = new Guid(id);
+            var appointment = await _context.Appointments.Where(a => a.Id == appointmentId).FirstOrDefaultAsync();
+            var statusMessage = "Successfully cancelled appointment!";
+            if (appointment != null)
+            {
+                if (userId == appointment.UserId)
+                {
+                    appointment.Status = AppointmentStatus.Cancelled;
+                    _context.Entry(appointment).Property(a => a.Status).IsModified = true;
+                    await _context.SaveChangesAsync();
+                } else
+                {
+                    statusMessage = "Error: Failed to cancel appointment!";
+                }
+            } else
+            {
+                statusMessage = "Error: Unable to find appointment, failed to cancel!";
+            }
+            if (returnAction == null) returnAction = "Index";
+            TempData["StatusMessage"] = statusMessage;
+            if (returnAction.Equals("Appointment")) return RedirectToAction(returnAction, new { id });
+            return RedirectToAction(returnAction);
         }
 
         private List<string> GetAWSConnectionStrings()

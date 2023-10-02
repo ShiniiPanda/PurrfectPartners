@@ -1,4 +1,5 @@
 ﻿@model PurrfectPartners.Areas.Identity.Data.Appointment
+@using PurrfectPartners.Areas.Identity.Data
 
 @{
     ViewData["Title"] = "Appointment";
@@ -12,6 +13,12 @@
 </div>
 <div>
     <h4>Appointment for @ViewBag.OwnerName</h4>
+    @if (Model.Status == AppointmentStatus.Pending)
+    {
+        <a onclick="return confirm('Are you sure you'd like to cancel this appointment?')" asp-controller="Appointments" asp-action="CancelAppointment" asp-route-id="@Model.Id" asp-route-returnAction="Appointment" class="mx-1 btn btn-sm btn-danger">
+            Cancel Appointment
+        </a>
+    }
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">

@@ -48,7 +48,7 @@
                 @if (item.Status == PurrfectPartners.Areas.Identity.Data.AppointmentStatus.Pending)
                 {
                     <span>|</span>
-                    <a asp-action="Delete" class="text-danger" asp-route-id="@item.Id">Cancel Appointmet</a>
+                    <a asp-action="CancelAppointment" class="text-danger" asp-route-id="@item.Id" asp-route-returnAction="Index">Cancel Appointmet</a>
                 }
             </td>
         </tr>
