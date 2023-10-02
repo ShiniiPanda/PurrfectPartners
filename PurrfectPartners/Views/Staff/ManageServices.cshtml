@@ -1,35 +1,29 @@
-﻿@model IEnumerable<PurrfectPartners.Areas.Identity.Data.TrainingService>
+﻿@model ManageServicesModel
 
 @{
     ViewData["Title"] = "ManageServices";
     Layout = "~/Views/Staff/_Layout.cshtml";
+    var statusMessage = TempData["StatusMessage"];
 }
 
-<h1>ManageServices</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Manage Services</h1>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Description
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartingPrice)
-            </th>
-            <th>
-                Animals
+                Base Price
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Services) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -38,20 +32,40 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartingPrice) RM
+                @Html.DisplayFor(modelItem => item.DefaultPrice)
             </td>
             <td>
-                    @foreach (var animal in item.Animals)
-                    {
-                        @animal.Name<br />
-                    }
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="EditService" asp-route-id="@item.Id">Edit</a> |
+                <a onclick="return confirm('Are you sure you want to remove this service?')" asp-action="DeleteService" class="text-danger" asp-route-id="@item.Id">Remove</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<hr class="mt-5"/>
+<h4>New Service</h4>
+<partial name="_StatusMessage" model="statusMessage" />
+<form asp-action="AddService" asp-controller="Staff" method="post">
+    <div class="form-group my-2">
+        <label asp-for="NewService.Name" class="control-label"></label>
+        <input asp-for="NewService.Name" type="text" class="form-control" />
+        <span asp-validation-for="NewService.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group my-2">
+        <label asp-for="NewService.Description" class="control-label"></label>
+        <input asp-for="NewService.Description" type="text" class="form-control" />
+        <span asp-validation-for="NewService.Description" class="text-danger"></span>
+    </div>
+    <div class="form-group my-2">
+        <label asp-for="NewService.DefaultPrice" class="control-label">Default Service Price</label>
+        <input asp-for="NewService.DefaultPrice" type="number" class="form-control" />
+        <span asp-validation-for="NewService.DefaultPrice" class="text-danger"></span>
+    </div>
+    <div class="form-group my-2">
+        <label asp-for="NewService.AnimalIds" class="control-label">Targeted Animals</label>
+        <select asp-for="NewService.AnimalIds" class="form-control" asp-items="ViewBag.Animals" multiple></select>
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

@@ -28,3 +28,7 @@ nav {
 main {
 
 }
+
+.appointmentpicture {
+    max-width: 100vh;
+}

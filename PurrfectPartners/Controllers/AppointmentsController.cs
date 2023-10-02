@@ -43,21 +43,40 @@ namespace PurrfectPartners.Controllers
             return View(completedAppointments);
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string animal)
         {
-            var services = await GetServices();
-            var listedServices = new List<SelectListItem>();
-            foreach (var service in services)
+            if (animal == null)
             {
-                listedServices.Add(new SelectListItem(service.Name, service.Id.ToString()));
+                var animals = await _context.Animals
+                    .Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString() })
+                    .AsNoTracking()
+                    .ToListAsync();
+                ViewBag.AnimalSelected = false;
+                ViewBag.Animals = animals;
+                return View();
             }
-            ViewBag.Services = listedServices;
+            ViewBag.AnimalSelected = true;
+            int animalId = int.Parse(animal);
+            var animalModel = await _context.Animals.Where(a => a.Id == animalId)
+                .Include(a => a.JoinedServices)
+                .ThenInclude(a => a.TrainingService)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+            if (animalModel != null)
+            {
+                //var listedServices = animalModel.JoinedServices.Select(s => new SelectListItem { Text = s.TrainingService.Name, Value = s.TrainingServiceId.ToString() }).ToList();
+                ViewBag.Animal = animalModel;
+            } else
+            {
+                ViewBag.AnimalSelected = false;
+            }
             return View();
         }
 
-        private async Task<IEnumerable<TrainingService>> GetServices()
+        public IActionResult ForwardCreate(string animal)
         {
-            return await _context.TrainingServices.AsNoTracking().ToListAsync();
+            return RedirectToAction("Create", new { animal = animal });
         }
 
         [HttpPost]
@@ -105,6 +124,7 @@ namespace PurrfectPartners.Controllers
                 newAppointment.BookingDate = DateTime.UtcNow;
                 newAppointment.ReservationDate = newAppointmentModel.ReservationDate;
                 newAppointment.TrainingServiceId = int.Parse(newAppointmentModel.ServiceId);
+                newAppointment.AnimalId = int.Parse(newAppointmentModel.AnimalId);
                 _context.Appointments.Add(newAppointment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -115,14 +135,19 @@ namespace PurrfectPartners.Controllers
         public async Task<IActionResult> Appointment(string id)
         {
             var appointmentId = new Guid(id);
-            var appointment = await _context.Appointments.Include(a => a.TrainingService)
+            var appointment = await _context.Appointments
+                .Where(a => a.Id == appointmentId)
+                .Include(a => a.TrainingService)
+                .Include(a => a.Animal)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(a => a.Id == appointmentId);
+                .FirstOrDefaultAsync();
+
             if (appointment != null)
             {
                 var appointmentOwner = await _context.Users.Where(u => u.Id == appointment.UserId).Select(u => u.Name).AsNoTracking().FirstOrDefaultAsync();
                 ViewBag.OwnerName = appointmentOwner == null ? null : appointmentOwner;
             }
+
             return View(appointment);
         }
 
@@ -146,5 +171,7 @@ namespace PurrfectPartners.Controllers
 
         [Required]
         public string ServiceId { get; set; } = null!;
+
+        public string AnimalId { get; set; } = null!;
     }
 }

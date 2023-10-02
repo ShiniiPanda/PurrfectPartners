@@ -16,7 +16,7 @@ namespace PurrfectPartners.Areas.Identity.Data
 
         public List<TrainingService> TrainingServices { get; set; } = new List<TrainingService>();
 
-        public ICollection<AnimalTrainingServices> JoinedServices { get; set; } = new List<AnimalTrainingServices>();
+        public List<AnimalTrainingServices> JoinedServices { get; set; } = new List<AnimalTrainingServices>();
 
 
     }

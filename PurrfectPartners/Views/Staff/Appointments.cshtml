@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<PurrfectPartners.Areas.Identity.Data.Appointment>
+@using PurrfectPartners.Areas.Identity.Data
 
 @{
     ViewData["Title"] = "Appointments";
@@ -6,10 +7,6 @@
 }
 
 <h1>Appointments</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -20,23 +17,8 @@
                 @Html.DisplayNameFor(model => model.BookingDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Breed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AnimalImage)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrainingService)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Animal)
-            </th>
+            </th>   
             <th></th>
         </tr>
     </thead>
@@ -50,27 +32,20 @@
                 @Html.DisplayFor(modelItem => item.BookingDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Breed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnimalImage)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TrainingService.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Animal.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Appointment" asp-route-id="@item.Id">Details</a>
+                    @if (item.Status == AppointmentStatus.Pending)
+                    {
+                        <a asp-action="ChangeAppointmentStatus" class="text-success" asp-route-id="@item.Id" asp-route-status="1" asp-route-returnAction="Appointments">Approve</a>
+                        <a onclick="return confirm('Are you sure you'd like to reject this appointment?')" asp-action="ChangeAppointmentStatus" class="text-danger" asp-route-id="@item.Id" asp-route-status="3" asp-route-returnAction="Appointments">Reject</a>
+                    }
+                    @if (item.Status == AppointmentStatus.Approved)
+                    {
+                        <a asp-action="ChangeAppointmentStatus" class="text-success" asp-route-id="@item.Id" asp-route-status="2" asp-route-returnAction="Appointments">Mark as Complete</a>
+                    }
+                    <a asp-action="Delete" class="text-danger" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

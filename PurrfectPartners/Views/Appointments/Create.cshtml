@@ -3,6 +3,12 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    PurrfectPartners.Areas.Identity.Data.Animal animalModel = ViewBag.Animal;
+    var services = new List<SelectListItem>();
+    if (animalModel != null)
+    {
+        services = animalModel.JoinedServices.Select(s => new SelectListItem { Text = $"{s.TrainingService.Name} - {s.StartingPrice} RM", Value = s.TrainingServiceId.ToString() }).ToList();
+    }
 }
 
 <h1>Book a new Appointment</h1>
@@ -11,38 +17,54 @@
 </div>
 @*<h4>Appointment</h4>*@
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="AddAppointment" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group my-2">
-                <label asp-for="ReservationDate" class="control-label"></label>
-                <input asp-for="ReservationDate" class="form-control" />
-                <span asp-validation-for="ReservationDate" class="text-danger"></span>
-            </div>
-@*            <div class="form-group my-2">
-                <label asp-for="BookingDate" class="control-label"></label>
-                <input asp-for="BookingDate" class="form-control" />
-                <span asp-validation-for="BookingDate" class="text-danger"></span>
+@if (ViewBag.AnimalSelected == false)
+{
+    <form asp-action="ForwardCreate" method="get">
+        <div class="form-group my-2">
+            <label for="animal" class="control-label">Select Animal Type</label>
+            <select name="animal" class="form-control" asp-items="ViewBag.Animals"></select>
+        </div>
+        <div class="form-group mt-3">
+            <input type="submit" value="Proceed" class="btn btn-primary" />
+        </div>
+    </form>
+} else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddAppointment" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group my-2">
+                    <label asp-for="ReservationDate" class="control-label"></label>
+                    <input asp-for="ReservationDate" class="form-control" />
+                    <span asp-validation-for="ReservationDate" class="text-danger"></span>
+                </div>
+                @*            <div class="form-group my-2">
+            <label asp-for="BookingDate" class="control-label"></label>
+            <input asp-for="BookingDate" class="form-control" />
+            <span asp-validation-for="BookingDate" class="text-danger"></span>
             </div>*@
-            <div class="form-group my-2">
-                <label asp-for="ServiceId" class="control-label">Service</label>
-                <select asp-for="ServiceId" class="form-control" asp-items="ViewBag.Services"></select>
-            </div>
-            <div class="form-group my-2">
-                <label class="control-label">Picture</label>
-                <input type="file" accept="image/png, image/jpeg, image/jpg" name="AnimalImage" class="form-control" />
-            </div>
-  @*          <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+                <div class="form-group my-2">
+                    <label asp-for="ServiceId" class="control-label">Service</label>
+                    <select asp-for="ServiceId" class="form-control" asp-items="services"></select>
+                </div>
+                <p class="opacity-75">The price shown is the starting price for the specified service and animal. Extra addtional operationals costs may be incurred!</p>
+                <div class="form-group my-2">
+                    <label class="control-label">Picture</label>
+                    <input type="file" accept="image/png, image/jpeg, image/jpg" name="AnimalImage" class="form-control" />
+                </div>
+                <input type="hidden" asp-for="AnimalId" value="@animalModel.Id" />
+                @*          <div class="form-group">
+            <label asp-for="UserId" class="control-label"></label>
+            <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
             </div>*@
-            <div class="form-group mt-3">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

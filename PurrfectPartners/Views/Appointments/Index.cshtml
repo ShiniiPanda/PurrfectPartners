@@ -14,19 +14,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationDate)
+                ID
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingDate)
+                Reservation Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnimalImage)
+                Status
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrainingService)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
+                Booking Date
             </th>
             <th></th>
         </tr>
@@ -35,24 +32,24 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ReservationDate)
+                @item.Id
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BookingDate)
+                @item.ReservationDate.ToString("MM-dd-yyyy HH:MM")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AnimalImage)
+                @item.Status.ToString()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TrainingService.Id)
+                @item.BookingDate.ToString("MM-dd-yyyy HH:MM")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Appointment" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Appointment" asp-route-id="@item.Id">Details</a>
+                @if (item.Status == PurrfectPartners.Areas.Identity.Data.AppointmentStatus.Pending)
+                {
+                    <span>|</span>
+                    <a asp-action="Delete" class="text-danger" asp-route-id="@item.Id">Cancel Appointmet</a>
+                }
             </td>
         </tr>
 }

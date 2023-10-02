@@ -9,6 +9,8 @@ namespace PurrfectPartners.Areas.Identity.Data
 
         public int TrainingServiceId { get; set; }
 
+        public double StartingPrice { get; set; } = 0;
+
         public Animal Animal { get; set; } = null!;
 
         public TrainingService TrainingService { get; set; } = null!;

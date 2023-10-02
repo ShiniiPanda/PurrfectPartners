@@ -15,11 +15,11 @@ namespace PurrfectPartners.Areas.Identity.Data
 
         public string Description { get; set; } = null!;
 
-        public double StartingPrice { get; set; }
+        public double DefaultPrice { get; set; } = 0;
 
         public List<Animal> Animals { get; set; } = new List<Animal>();
 
-        public ICollection<AnimalTrainingServices> JoinedAnimals { get; set; } = new List<AnimalTrainingServices>();
+        public List<AnimalTrainingServices> JoinedAnimals { get; set; } = new List<AnimalTrainingServices>();
 
     }
 }

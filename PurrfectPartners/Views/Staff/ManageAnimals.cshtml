@@ -23,9 +23,8 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a onclick="return confirm('Are you sure you want to remove this animal record, by doing so all appointments under this animal type wll be removed!')"
+                asp-action="DeleteAnimal" asp-route-id="@item.Id" class="text-danger">Remove</a>
             </td>
         </tr>
 }
@@ -35,7 +34,7 @@
 <partial name="_StatusMessage" model="statusMessage" />
 <form asp-action="AddAnimal" asp-controller="Staff" method="post">
     <div class="form-group">
-        <label for="name" class="control-label"></label>
+        <label for="name" class="control-label">Animal Name</label>
         <input name="name" type="text" class="form-control" />
     </div>
     <div class="form-group mt-3">
