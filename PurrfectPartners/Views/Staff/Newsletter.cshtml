@@ -1,0 +1,25 @@
+﻿@model PurrfectPartners.Models.SNSRequestModel
+@{
+    ViewData["Title"] = "Newsletter";
+    Layout = "~/Views/Staff/_Layout.cshtml";
+    var statusMessage = TempData["StatusMessage"];
+}
+<h1>Manage Services</h1>
+<hr />
+<partial name="_StatusMessage" model="statusMessage" />
+<form asp-action="PublishMessage" asp-controller="SNS" method="post">
+    <input type="hidden" asp-for="Action" value="message" />
+    <div class="form-group my-2">
+        <label asp-for="Subject" class="control-label"></label>
+        <input asp-for="Subject" type="text" class="form-control" />
+        <span asp-validation-for="Subject" class="text-danger"></span>
+    </div>
+    <div class="form-group my-2">
+        <label asp-for="Message" class="control-label"></label>
+        <input asp-for="Message" type="text" class="form-control" />
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

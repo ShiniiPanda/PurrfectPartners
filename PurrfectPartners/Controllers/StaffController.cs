@@ -87,6 +87,11 @@ namespace PurrfectPartners.Controllers
             return View(ViewModel);
         }
 
+        public IActionResult Newsletter()
+        {
+            return View();
+        }
+
         public async Task<ActionResult> EditService(int id)
         {
             var service = await _context.TrainingServices.Where(t => t.Id == id)

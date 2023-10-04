@@ -19,6 +19,8 @@ public class PurrfectPartnersContext : IdentityDbContext<User>
 
     public DbSet<AnimalTrainingServices> AnimalServices { get; set; }
 
+    public DbSet<Feedback> Feedback { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
