@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Newsletter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var statusMessage = TempData["StatusMessage"];
+}
+<h1>Subscription Status: <span class="text-success">@ViewBag.NewsletterStatus</span> </h1>
+@*<div class="mt-2 mb-4">
+    <a asp-page="/Areas/Identity/Pages/Account/Manage/Index.cshtml">Back to Profile</a>
+</div>*@
+<hr />
+<partial name="~/Views/Profile/_StatusMessage.cshtml" model="statusMessage" />
+@if (ViewBag.NewsletterStatus == "Inactive")
+{
+    <a asp-action="Subscribe" asp-controller="SNS" class="btn btn-primary btn-success">Subscribe</a>
+} else if (ViewBag.NewsletterStatus == "Active")
+{
+    <a asp-action="Unsubscribe" asp-controller="SNS" class="btn btn-primary btn-danger">Unsubscribe</a>
+}

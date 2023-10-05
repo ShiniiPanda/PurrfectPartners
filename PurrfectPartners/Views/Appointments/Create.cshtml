@@ -53,7 +53,7 @@
                     <label class="control-label">Picture</label>
                     <input type="file" accept="image/png, image/jpeg, image/jpg" name="AnimalImage" class="form-control" />
                 </div>
-                <input type="hidden" asp-for="AnimalId" value="@animalModel.Id" />
+                <input type="hidden" asp-for="AnimalId" value="@animalModel!.Id" />
                 @*          <div class="form-group">
             <label asp-for="UserId" class="control-label"></label>
             <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>

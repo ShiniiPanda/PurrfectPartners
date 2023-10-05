@@ -2,8 +2,108 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center p-5">
-    <h1 class="display-2 mt-5">Purrfect Partners</h1>
-    <p>Your prime choice for animal training services</p>
+<style>
+    .content {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .content-banner {
+        position: relative;
+        align-items: center;
+        text-align: center;
+        margin: 20px;
+        width: 1200px;
+        height: 400px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+        .content-banner img {
+            max-width: 100%;
+            height: auto;
+        }
+
+    .content-details {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        padding: 20px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+        .content-details:hover {
+            opacity: 1;
+        }
+
+    .banner-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ff6600;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+        .banner-btn:hover {
+            background-color: #dd5500;
+            color: pink;
+        }
+</style>
+
+<div class="d-flex flex-column justify-content-center">
+    <div class="text-center p-5">
+        <img src="/images/new_logo.png" alt="Purrfect Partners">
+    </div>
+
+    <!-- Content Section -->
+    <section class="content">
+        <div class="container">
+            <div class="content-banner">
+                <img src="https://cdn.ttgtmedia.com/visuals/ComputerWeekly/Hero%20Images/pets-cats-dogs-adobe-hero.jpg" alt="Animals">
+                <div class="content-details">
+                    <h2 class="mt-3">Animals</h2>
+                    <p class="display-6 px-3">Explore our wonderful world of animals and their unique training needs.</p>
+                    <a href="Home/Animals" class="banner-btn">Learn More</a>
+                </div>
+            </div>
+            <div class="content-banner">
+                <img src="https://www.adulteducationireland.ie/uploads/4/1/7/3/41731433/petcare-courses-limerick-kildare-dublin_orig.png" alt="Services">
+                <div class="content-details">
+                    <h2 class="mt-3">Services</h2>
+                    <p class="display-6 px-3">Discover our specialized training services for various adorable companions.</p>
+                    <a href="Home/Services" class="banner-btn">Learn More</a>
+                </div>
+            </div>
+            <div class="content-banner">
+                <img src="https://salesgravy.com/wp-content/uploads/2019/06/coachpositivefeedback.png" alt="Feedback & Reviews">
+                <div class="content-details">
+                    <h2 class="mt-3">Feedback & Reviews</h2>
+                    <p class="display-6 px-3">Read what our customers have to say about their experiences with us.</p>
+                    <a href="Home/Feedback" class="banner-btn">Learn More</a>
+                </div>
+            </div>
+            <div class="content-banner">
+                <img src="https://images.squarespace-cdn.com/content/v1/611b3a86fb6a226aadffcf79/39516161-dbc2-46fd-88d6-b82a97e3c10d/Pet+Services.png" alt="Appointments">
+                <div class="content-details">
+                    <h2 class="mt-3">Appointments</h2>
+                    <p class="display-6 px-3">Schedule an appointment with our experts to get started on providing services for your pet.</p>
+                    <a asp-action="Create" asp-controller="Appointments" class="banner-btn">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
-<hr class="" />
+

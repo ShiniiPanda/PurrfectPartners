@@ -159,6 +159,7 @@ namespace PurrfectPartners.Areas.Identity.Pages.Account
                 user.Name = Input.Name;
                 user.DOB = Input.DOB;
                 user.Address = Input.Address;
+                user.EmailConfirmed = true;
                 if (Input.Phone != null) await _userManager.SetPhoneNumberAsync(user, Input.Phone);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -166,36 +167,36 @@ namespace PurrfectPartners.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
                     
-                    var roleExists = await _roleManager.RoleExistsAsync(nameof(UserRole.Staff));
+                    var roleExists = await _roleManager.RoleExistsAsync(nameof(UserRole.Customer));
                     if (!roleExists)
                     {
-                        await _roleManager.CreateAsync(new IdentityRole(nameof(UserRole.Staff)));
+                        await _roleManager.CreateAsync(new IdentityRole(nameof(UserRole.Customer)));
                     }
 
-                    await _userManager.AddToRoleAsync(user, nameof(UserRole.Staff));
+                    await _userManager.AddToRoleAsync(user, nameof(UserRole.Customer));
                     //TODO: legit change the role to "Customer" or else it's disastrous btw lmao
 
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
+                    //var userId = await _userManager.GetUserIdAsync(user);
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    //var callbackUrl = Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                    //    protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
+                    //if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    //{
+                    //    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                    //}
+                    //else
+                    //{
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
-                    }
+                    //}
                 }
                 foreach (var error in result.Errors)
                 {

@@ -13,8 +13,24 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\wwwroot\\images\\Purrfect Partners Logo.png",
+      "PackagePath": "staticwebassets\\images\\Purrfect Partners Logo.png"
+    },
+    {
+      "Id": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\wwwroot\\images\\Purrfect_Partners_Logo.png",
+      "PackagePath": "staticwebassets\\images\\Purrfect_Partners_Logo.png"
+    },
+    {
       "Id": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\wwwroot\\images\\logo.png",
       "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\wwwroot\\images\\main_banner.png",
+      "PackagePath": "staticwebassets\\images\\main_banner.png"
+    },
+    {
+      "Id": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\wwwroot\\images\\new_logo.png",
+      "PackagePath": "staticwebassets\\images\\new_logo.png"
     },
     {
       "Id": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\wwwroot\\images\\pawpattern.png",

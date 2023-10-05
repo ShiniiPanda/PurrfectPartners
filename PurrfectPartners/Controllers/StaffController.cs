@@ -99,6 +99,23 @@ namespace PurrfectPartners.Controllers
                 .ThenInclude(ja => ja.Animal)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
+
+            if (service == null)
+            {
+                TempData["StatusMessage"] = "Error: Unable to fetch service information!";
+                return RedirectToAction("ManageServices");
+            }
+
+            var animalIds = service.JoinedAnimals.Select(ja => ja.Animal.Id).ToList();
+
+            var unselectedAnimals = await _context.Animals.Where(a => !animalIds.Contains(a.Id)).ToListAsync();
+
+            ViewBag.AvailableAnimals = unselectedAnimals.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
+
             if (service == null)
             {
                 return RedirectToAction("ManageServices");
@@ -131,6 +148,61 @@ namespace PurrfectPartners.Controllers
             await _context.SaveChangesAsync();
             TempData["StatusMessage"] = $"Service {service.Name} has been removed!";
             return RedirectToAction("ManageServices");
+        }
+
+        public async Task<ActionResult> AddAnimalToService(int id, string newAnimal)
+        {
+            var service = await _context.TrainingServices.FindAsync(id);
+            if (service == null)
+            {
+                TempData["StatusMessage"] = "Error: Unable to fetch service information";
+                return RedirectToAction("ManageServices");
+            }
+            var animalId = int.Parse(newAnimal);
+            if (!_context.Animals.Where(a => a.Id == animalId).Any())
+            {
+                TempData["StatusMessage"] = "Error: Failed to add animal under service, animal was not found";
+                return RedirectToAction("EditService", new { id });
+            }
+
+            if (_context.AnimalServices.Where(a => a.AnimalId == animalId && a.TrainingServiceId == id).Any())
+            {
+                TempData["StatusMessage"] = "Error: Animal is already added under this service!";
+                return RedirectToAction("EditService", new { id });
+            }
+
+            service.JoinedAnimals.Add(new AnimalTrainingServices
+            {
+                TrainingServiceId = id,
+                AnimalId = animalId,
+                StartingPrice = service.DefaultPrice
+            });
+
+            await _context.SaveChangesAsync();
+            TempData["StatusMessage"] = "Successfully added a new animal under this service!";
+            return RedirectToAction("EditService", new { id });
+        }
+
+        public async Task<ActionResult> RemoveAnimalFromService(int id, int animal)
+        {
+            var service = await _context.TrainingServices.FindAsync(id);
+            if (service == null)
+            {
+                TempData["StatusMessage"] = "Error: Unable to fetch service information";
+                return RedirectToAction("ManageServices");
+            }
+
+            var relationship = await _context.AnimalServices.Where(a => a.TrainingServiceId == id && a.AnimalId == animal).FirstOrDefaultAsync();
+            if (relationship == null)
+            {
+                TempData["StatusMessage"] = "Error: Animal was not placed under this service!";
+                return RedirectToAction("EditService", new { id });
+            }
+
+            _context.AnimalServices.Remove(relationship);
+            await _context.SaveChangesAsync();
+            TempData["StatusMessage"] = "Successfully removed an animal under this service!";
+            return RedirectToAction("EditService", new { id });
         }
 
         public async Task<IActionResult> ManageAnimals()

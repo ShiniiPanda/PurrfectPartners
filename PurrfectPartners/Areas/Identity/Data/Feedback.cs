@@ -11,13 +11,17 @@ namespace PurrfectPartners.Areas.Identity.Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Required]
+        [EmailAddress]
         public string Email { get; set; } = null!;
 
         public string? Phone { get; set; }
 
+        [Required]
+        [StringLength(1024, ErrorMessage = "Please ensure your message is under 1024 characters!", MinimumLength = 0)]
         public string Message { get; set; } = null!;
 
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.UtcNow.ToLocalTime();
 
     }
 }

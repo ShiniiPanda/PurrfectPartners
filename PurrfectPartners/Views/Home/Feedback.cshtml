@@ -1,9 +1,119 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model PurrfectPartners.Areas.Identity.Data.Feedback
+@{
+    ViewData["Title"] = "Feedback and Reviews";
+    var feedbackStatus = TempData["FeedbackStatus"];
 }
 
-<div class="text-center p-3">
-    <h1 class="display-2 mt-5">Feedback and Reviews</h1>
-    <p>Our Customers' Testimonials and Experiences</p>
+<style>
+    .star-rating {
+        display: inline-block;
+    }
+
+    .star-rating label {
+        font-size: 24px;
+        color: #ff6600;
+    }
+</style>
+
+<div class="container mt-5">
+    <h1 class="display-4 text-center">Feedback and Reviews</h1>
+    <p class="lead text-center">Our Customers' Testimonials and Experiences</p>
+    <hr class="my-4">
+
+    <!-- Review 1 -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Emily Smith</h5>
+            <div class="star-rating">
+                <label for="review1-star1">&#9733;</label>
+                <label for="review1-star2">&#9733;</label>
+                <label for="review1-star3">&#9733;</label>
+                <label for="review1-star4">&#9733;</label>
+                <label for="review1-star5">&#9733;</label>
+            </div>
+            <p class="card-text">"I am thrilled with the obedience training my dog received. He's now a well-behaved and obedient companion. Highly recommended!"</p>
+        </div>
+    </div>
+
+    <!-- Review 2 -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">David Johnson</h5>
+            <div class="star-rating">
+                <label for="review1-star1">&#9733;</label>
+                <label for="review1-star2">&#9733;</label>
+                <label for="review1-star3">&#9733;</label>
+                <label for="review1-star4">&#9733;</label>
+                <label for="review1-star5">&#9733;</label>
+            </div>
+            <p class="card-text">"The grooming service was fantastic! My cat looks and feels amazing. Thanks for the excellent care."</p>
+        </div>
+    </div>
+
+    <!-- Review 3 -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Sarah Brown</h5>
+            <div class="star-rating">
+                <label for="review1-star1">&#9733;</label>
+                <label for="review1-star2">&#9733;</label>
+                <label for="review1-star3">&#9733;</label>
+                <label for="review1-star4">&#9733;</label>
+                <label for="review1-star5">&#9733;</label>
+            </div>
+            <p class="card-text">"Our guinea pig's socialization training went incredibly well. He's much more comfortable around people now."</p>
+        </div>
+    </div>
+
+    <!-- Review 4 -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Michael Davis</h5>
+            <div class="star-rating">
+                <label for="review1-star1">&#9733;</label>
+                <label for="review1-star2">&#9733;</label>
+                <label for="review1-star3">&#9733;</label>
+                <label for="review1-star4">&#9733;</label>
+                <label for="review1-star5">&#9733;</label>
+            </div>
+            <p class="card-text">"I can't believe how quickly my bird picked up the tricks. Your training service is outstanding!"</p>
+        </div>
+    </div>
+
+    <!-- Review 5 -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Laura Wilson</h5>
+            <div class="star-rating">
+                <label for="review1-star1">&#9733;</label>
+                <label for="review1-star2">&#9733;</label>
+                <label for="review1-star3">&#9733;</label>
+                <label for="review1-star4">&#9733;</label>
+                <label for="review1-star5">&#9733;</label>
+            </div>
+            <p class="card-text">"The litter training for my rabbit worked like a charm. Thank you for making our lives easier."</p>
+        </div>
+    </div>
+    <h3 class="mt-4">We would love to hear your feedback 🐶</h3>
+    <partial name="_StatusMessage" model="feedbackStatus"/>
+    <form asp-action="AddFeedback" asp-controller="Home" method="post">
+        <div class="form-group mt-2">
+            <label class="tw-bold" asp-for="Email" class="control-label"></label> *
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2">
+            <label class="tw-bold" asp-for="Phone" class="control-label"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2">
+            <label class="tw-bold" asp-for="Message" class="control-label"></label> *
+            <textarea asp-for="Message" class="form-control"></textarea>
+            <span asp-validation-for="Message" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <input type="submit" value="Send" class="btn btn-success w-25" />
+        </div>
+    </form>
 </div>
-<hr class="" />
