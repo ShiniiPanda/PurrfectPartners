@@ -9,6 +9,8 @@ using Amazon.XRay.Recorder.Handlers.AwsSdk;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PurrfectPartnersContextConnection") ?? throw new InvalidOperationException("Connection string 'PurrfectPartnersContextConnection' not found.");
 
+AWSSDKHandler.RegisterXRayForAllServices();
+
 builder.Services.AddDbContext<PurrfectPartnersContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -29,6 +31,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseXRay("PurrfectPartnersWebsite");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
