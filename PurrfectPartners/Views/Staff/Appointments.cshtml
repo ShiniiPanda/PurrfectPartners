@@ -26,10 +26,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ReservationDate)
+                @item.ReservationDate.ToString("MM-dd-yyyy HH:mm")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BookingDate)
+                @item.BookingDate.ToString("MM-dd-yyyy HH:mm")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
@@ -45,7 +45,7 @@
                     {
                         <a asp-action="ChangeAppointmentStatus" class="text-success" asp-route-id="@item.Id" asp-route-status="2" asp-route-returnAction="Appointments">Mark as Complete</a>
                     }
-                    <a asp-action="Delete" class="text-danger" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="DeleteAppointment" class="text-danger" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

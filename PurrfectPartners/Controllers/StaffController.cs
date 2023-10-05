@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -90,6 +93,26 @@ namespace PurrfectPartners.Controllers
         public IActionResult Newsletter()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Feedback()
+        {
+            var feedbackList = await _context.Feedback.OrderByDescending(a => a.Date).ToListAsync();
+            return View(feedbackList);
+        }
+
+        public async Task<IActionResult> DeleteFeedback(int id)
+        {
+            var feedback = await _context.Feedback.FindAsync(id);
+            if (feedback == null)
+            {
+                TempData["StatusMessage"] = $"Error: Unable to find feedback record with id ({id})";
+                return RedirectToAction("Feedback");
+            }
+            _context.Feedback.Remove(feedback);
+            await _context.SaveChangesAsync();
+            TempData["StatusMessage"] = "Successfully deleted feedback record!";
+            return RedirectToAction("Feedback");
         }
 
         public async Task<ActionResult> EditService(int id)
@@ -314,6 +337,48 @@ namespace PurrfectPartners.Controllers
             if (returnAction == null) returnAction = "Appointments";
             if (returnAction.Equals("Appointment")) return RedirectToAction(returnAction, new { id });
             return RedirectToAction(returnAction);
+        }
+
+        public async Task<IActionResult> DeleteAppointment(string id)
+        {
+            var appointmentId = new Guid(id);
+            var appointment = await _context.Appointments.FindAsync(appointmentId);
+            if (appointment == null)
+            {
+                TempData["StatusMessage"] = $"Error: Unable to find appointment record with id ({id})";
+                return RedirectToAction("Appointments");
+            }
+            if (appointment.AnimalImage != null)
+            {
+                try
+                {
+                    var connectionStrings = GetAWSConnectionStrings();
+                    var S3Client = new AmazonS3Client(connectionStrings[0], connectionStrings[1], connectionStrings[2], RegionEndpoint.USEast1);
+                    var deleteRequest = new DeleteObjectRequest
+                    {
+                        BucketName = StandardValues.S3BucketName,
+                        Key = StandardValues.S3AppointmentsDirectory + appointment.AnimalImage
+                    };
+                    await S3Client.DeleteObjectAsync(deleteRequest);
+                } catch (AmazonS3Exception ex)
+                {
+                    _logger.LogError("Failed to delete appointment image from S3 Bucket. Error: " + ex.Message);
+                }
+            }
+            _context.Appointments.Remove(appointment);
+            await _context.SaveChangesAsync();
+            TempData["StatusMessage"] = "Successfully deleted appointment record!";
+            return RedirectToAction("Appointments");
+        }
+
+        private List<string> GetAWSConnectionStrings()
+        {
+            var result = new List<string>();
+            for (int i = 1; i <= 3; i++)
+            {
+                result.Add(_configuration.GetValue<string>($"AWS:Key{i}")!);
+            }
+            return result;
         }
     }
 }

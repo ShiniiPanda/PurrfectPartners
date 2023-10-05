@@ -11,6 +11,7 @@ namespace PurrfectPartners.Areas.Identity.Data
         public Guid Id { get; set; }
 
         // The data the appointment takes place
+        [DataType(DataType.DateTime)]
         public DateTime ReservationDate { get; set; }
 
         // The date it was booked

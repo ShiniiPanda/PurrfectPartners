@@ -104,7 +104,7 @@ namespace PurrfectPartners.Controllers
                         {
                             InputStream = AnimalImage.OpenReadStream(),
                             BucketName = StandardValues.S3BucketName,
-                            Key = imageName,
+                            Key = StandardValues.S3AppointmentsDirectory + imageName,
                             CannedACL = S3CannedACL.PublicRead
                         };
 
@@ -122,7 +122,7 @@ namespace PurrfectPartners.Controllers
                 Appointment newAppointment = new();
                 newAppointment.UserId = userId;
                 if (ImageUploaded) newAppointment.AnimalImage = imageName;
-                newAppointment.BookingDate = DateTime.UtcNow;
+                newAppointment.BookingDate = DateTime.UtcNow.ToLocalTime();
                 newAppointment.ReservationDate = newAppointmentModel.ReservationDate;
                 newAppointment.TrainingServiceId = int.Parse(newAppointmentModel.ServiceId);
                 newAppointment.AnimalId = int.Parse(newAppointmentModel.AnimalId);

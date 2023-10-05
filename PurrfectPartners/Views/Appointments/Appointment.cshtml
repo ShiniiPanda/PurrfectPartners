@@ -37,13 +37,13 @@
             Reservation Date
         </dt>
         <dd class = "col-sm-10">
-            @Model.ReservationDate.ToString("MM-dd-yyyy HH:MM")
+            @Model.ReservationDate.ToString("MM-dd-yyyy HH:mm")
         </dd>
         <dt class="col-sm-2">
             Booking Date
         </dt>
         <dd class="col-sm-10">
-            @Model.BookingDate.ToString("MM-dd-yyyy HH:MM")
+            @Model.BookingDate.ToString("MM-dd-yyyy HH:mm")
         </dd>
         <dt class="col-sm-2">
             Animal
@@ -78,7 +78,7 @@
                 Picture
             </dt>
             <dd class="col-sm-10">
-                <img class="appointmentpicture" src="@("https://" + PurrfectPartners.Data.StandardValues.S3BucketName + ".s3.amazonaws.com/" + Model.AnimalImage)" alt="Picture of Animal" />
+                <img class="appointmentpicture" src="@("https://" + PurrfectPartners.Data.StandardValues.S3BucketName + ".s3.amazonaws.com/" + PurrfectPartners.Data.StandardValues.S3AppointmentsDirectory + Model.AnimalImage)" alt="Picture of Animal" />
             </dd>
         }
         

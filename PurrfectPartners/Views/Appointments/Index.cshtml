@@ -35,13 +35,13 @@
                 @item.Id
             </td>
             <td>
-                @item.ReservationDate.ToString("MM-dd-yyyy HH:MM")
+                @item.ReservationDate.ToString("MM-dd-yyyy HH:mm")
             </td>
             <td>
                 @item.Status.ToString()
             </td>
             <td>
-                @item.BookingDate.ToString("MM-dd-yyyy HH:MM")
+                @item.BookingDate.ToString("MM-dd-yyyy HH:mm")
             </td>
             <td>
                 <a asp-action="Appointment" asp-route-id="@item.Id">Details</a>

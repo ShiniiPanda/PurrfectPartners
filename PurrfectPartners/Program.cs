@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PurrfectPartners.Areas.Identity.Data;
 using PurrfectPartners.Data;
+using Amazon.XRay.Recorder.Core;
+using Amazon.XRay.Recorder.Handlers.AwsSdk;
+
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PurrfectPartnersContextConnection") ?? throw new InvalidOperationException("Connection string 'PurrfectPartnersContextConnection' not found.");
 

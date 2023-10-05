@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PurrfectPartners.Areas.Identity.Data.Feedback>
+
+@{
+    ViewData["Title"] = "Feedback";
+    Layout = "~/Views/Staff/_Layout.cshtml";
+    var statusMessage = TempData["StatusMessage"];
+}
+
+<h1>Feedback</h1>
+<partial name="_StatusMessage" model="statusMessage" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                <a class="text-danger" asp-action="DeleteFeedback" asp-controller="Staff" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@if (Model.Count() == 0)
+{
+    <h4 class="text-danger">No feedback was submitted yet!</h4>
+}
+

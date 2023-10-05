@@ -1,11 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "i7D0UEhhPvjRCFp01ALyQkJ35pTaH+1fMSd4O+2JI9oXQRZbGVdKJqfIW36BycDJjb9SuHrM3F1f/PiDDW5DHQ==",
+  "dgSpecHash": "znHSZCkRpp22uNTK01ljin7MOIAYxoQxs/7BsQ1LvkL5OEP8RZHHIqt6WomRkPDaakos8ALR7jiuO0FEF/BViw==",
   "success": true,
   "projectFilePath": "C:\\Users\\celis\\source\\repos\\PurrfectPartners\\PurrfectPartners\\PurrfectPartners.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\celis\\.nuget\\packages\\amazon.lambda.sqsevents\\2.1.0\\amazon.lambda.sqsevents.2.1.0.nupkg.sha512",
     "C:\\Users\\celis\\.nuget\\packages\\awssdk.core\\3.7.202.17\\awssdk.core.3.7.202.17.nupkg.sha512",
     "C:\\Users\\celis\\.nuget\\packages\\awssdk.s3\\3.7.205.3\\awssdk.s3.3.7.205.3.nupkg.sha512",
+    "C:\\Users\\celis\\.nuget\\packages\\awsxrayrecorder.core\\2.14.0\\awsxrayrecorder.core.2.14.0.nupkg.sha512",
+    "C:\\Users\\celis\\.nuget\\packages\\awsxrayrecorder.handlers.aspnetcore\\2.11.0\\awsxrayrecorder.handlers.aspnetcore.2.11.0.nupkg.sha512",
+    "C:\\Users\\celis\\.nuget\\packages\\awsxrayrecorder.handlers.awssdk\\2.12.0\\awsxrayrecorder.handlers.awssdk.2.12.0.nupkg.sha512",
     "C:\\Users\\celis\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\celis\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\celis\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
