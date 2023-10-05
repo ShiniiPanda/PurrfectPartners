@@ -9,6 +9,9 @@
 </div>*@
 <hr />
 <partial name="~/Views/Profile/_StatusMessage.cshtml" model="statusMessage" />
+<p class="mb-2">The Purrfect Partner's Newsletter allows you to stay fully up-to-date with our latest and great of offers. We'll update you of any changes
+    to our existing services or upon the availability of new ones. 🐶
+</p>
 @if (ViewBag.NewsletterStatus == "Inactive")
 {
     <a asp-action="Subscribe" asp-controller="SNS" class="btn btn-primary btn-success">Subscribe</a>
