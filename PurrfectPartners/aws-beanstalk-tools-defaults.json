@@ -1,0 +1,22 @@
+
+{
+    "region" : "us-east-1",
+    "configuration" : "Debug",
+    "framework"     : "net7.0",
+    "self-contained" : true,
+    "application"    : "PurrfectPartners",
+    "environment"    : "PurrfectPartners-prod",
+    "enable-xray"    : true,
+    "enhanced-health-type" : "enhanced",
+    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-01890fe0761b6a8d1,sg-0bcc21da9736decde\";\"aws:ec2:vpc,Subnets\"=\"subnet-0309528a190a84fb5\";\"aws:ec2:vpc,ELBSubnets\"=\"subnet-0309528a190a84fb5,subnet-06be795662f2f053d,subnet-0a6e5e660aff02b81,subnet-0af54aa233043c21b,subnet-0bcf41b72e27343a9,subnet-0697261d315807b9d\"",
+    "solution-stack"       : "64bit Amazon Linux 2 v2.5.7 running .NET Core",
+    "environment-type"     : "LoadBalanced",
+    "loadbalancer-type"    : "application",
+    "cname"                : "purrfectpartners-prod",
+    "instance-type"        : "t2.micro",
+    "key-pair"             : "purrfectpair",
+    "health-check-url"     : "/",
+    "instance-profile"     : "LabInstanceProfile",
+    "service-role"         : "LabRole",
+    "proxy-server"         : "nginx"
+}
